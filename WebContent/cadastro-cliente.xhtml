@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui">
+		
+	<h:head></h:head>
+	
+	<h:body>
+
+		<h:form>
+			<p:fieldset legend="Dados do Cliente">
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Nome:" for="nome" />
+					<p:inputText id="nome" value="#{clienteBean.cliente.nome}"/>
+					
+					<p:outputLabel value="CPF:" for="cpf" />
+					<p:inputMask id="cpf" value="#{clienteBean.cliente.cpf}" mask="999.999.999-99"/>
+					
+					<p:outputLabel value="Data de Nascimento:" for="dataNascimento" />
+					<p:calendar id="dataNascimento" value="#{clienteBean.cliente.dataNascimento.time}"
+					timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy" mask="true" />
+					
+					<p:outputLabel value="Telefone:" for="telefone" />
+					<p:inputMask id="telefone" value="#{clienteBean.cliente.telefone}" 
+					mask="(99) 99999-9999"/>
+					
+					<p:outputLabel value="E-mail:" for="email" />
+					<p:inputText id="email" value="#{clienteBean.cliente.email}"/>
+					
+					<p:outputLabel value="Nome do Pai:" for="nome-pai" />
+					<p:inputText id="nome-pai" value="#{clienteBean.cliente.nomePai}"/>
+					
+					<p:outputLabel value="Nome da Mãe:" for="nome-mae" />
+					<p:inputText id="nome-mae" value="#{clienteBean.cliente.nomeMae}"/>
+					
+					<h:commandButton value="Cadastrar" action="#{clienteBean.cadastrar}">
+						<f:ajax execute="@form" render="@form :formTabelaClientes:tabelaClientes"></f:ajax>
+					</h:commandButton>
+				</h:panelGrid>
+				
+			</p:fieldset>
+		</h:form>
+		
+		<h:form id="formTabelaClientes" >
+		
+			<h:panelGrid>
+			
+				<p:dataTable value="#{clienteBean.clientes}" var="cliente" id="tabelaClientes">
+				
+					<p:column >
+						<f:facet name="header">ID</f:facet>
+						<h:outputText value="#{cliente.id}"></h:outputText>
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">NOME</f:facet>
+						<h:outputText value="#{cliente.nome}"></h:outputText>
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">CPF</f:facet>
+						<h:outputText value="#{cliente.cpf}"></h:outputText>
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">DATA DE NASCIMENTO</f:facet>
+						<h:outputText value="#{cliente.dataNascimento}"></h:outputText>
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">TELEFONE</f:facet>
+						<h:outputText value="#{cliente.telefone}"></h:outputText>
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">EMAIL</f:facet>
+						<h:outputText value="#{cliente.email}"></h:outputText>
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">NOME DO PAI</f:facet>
+						<h:outputText value="#{cliente.nomePai}"></h:outputText>
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">NOME DA MAE</f:facet>
+						<h:outputText value="#{cliente.nomeMae}"></h:outputText>
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">ALTERAR</f:facet>
+						<h:commandLink value="editar" action="#{clienteBean.carregar(cliente)}"></h:commandLink>
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">REMOVER</f:facet>
+						<h:commandLink value="deletar" action="#{clienteBean.remover(cliente)}"></h:commandLink>
+					</p:column>
+					
+				</p:dataTable>
+				
+			</h:panelGrid>
+			
+		</h:form>
+	</h:body>
+</html>
